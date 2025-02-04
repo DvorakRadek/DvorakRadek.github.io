@@ -1,39 +1,47 @@
 import { useState } from "react";
 
-const xCoordinates = [4, 3, 2, 1];
-const yCoordinates = [1, 2, 3, 4];
-const zCoordinates = [1, 2, 3, 4];
+const rows = [4, 3, 2, 1];
+const cols = [1, 2, 3, 4];
+const levels = [1, 2, 3, 4];
 
-type move = {
-  player: 'x' | 'o',
-  x: number,
-  y: number,
-  z: number,
+type Coordinates = {
+  row: number,
+  col: number,
+  level: number,
 }
 
-const moves: move[] = [];
+type Move = {
+  player: 'x' | 'o',
+  coordinates: Coordinates,
+}
+
+const moves: Move[] = [];
 
 const Board = () => {
   const [player, setPlayer] = useState<'x' | 'o'>('x');
 
+  const changePlayer = () => {
+    setPlayer((prevPlayer) => prevPlayer === 'x' ? 'o' : 'x');
+  };
+
   return (
     <div className="grid grid-cols-2 gap-8">
-      {zCoordinates.map((z) => {
+      {levels.map((level) => {
         return (
-          <div className="grid grid-cols-4" key={z}>
-            {yCoordinates.map((y) => {
+          <div className="grid grid-cols-4" key={level}>
+            {cols.map((col) => {
               return (
-                <div key={z + y}>
-                  {xCoordinates.map((x) => {
+                <div key={col}>
+                  {rows.map((row) => {
                     return (
                       <div
-                        key={z + y + x}
-                        className="border w-20 h-20"
+                        key={row}
+                        className="border w-20 h-20 flex justify-center items-center text-5xl"
                         onClick={(e) => {
-                          moves.push({player, x, y, z});
-                          setPlayer(player === 'x' ? 'o' : 'x');
+                          if (e.currentTarget.textContent) return;
+                          moves.push({player, coordinates: { row, col, level }});
+                          changePlayer();
                           e.currentTarget.textContent = player;
-                          e.currentTarget.onclick = () => e.currentTarget.setAttribute('inert', '');
                           console.log(moves);
                       }}></div>
                     )
