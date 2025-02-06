@@ -1,34 +1,37 @@
 import { useState } from "react";
+import checkVictory from "../utils/checkVictory";
 
-const rows = [4, 3, 2, 1];
+const rows = [1, 2, 3, 4];
 const cols = [1, 2, 3, 4];
 const levels = [1, 2, 3, 4];
 
-type Coordinates = {
+export type Coordinates = {
   row: number,
   col: number,
   level: number,
 }
 
-type Move = {
+export type Move = {
   player: 'x' | 'o',
   coordinates: Coordinates,
 }
 
+export type Player = 'x' | 'o';
+
 const moves: Move[] = [];
 
 const Board = () => {
-  const [player, setPlayer] = useState<'x' | 'o'>('x');
+  const [player, setPlayer] = useState<Player>('x');
 
   const changePlayer = () => {
     setPlayer((prevPlayer) => prevPlayer === 'x' ? 'o' : 'x');
   };
 
   return (
-    <div className="grid grid-cols-2 gap-8">
+    <div className="grid grid-cols-4 gap-8">
       {levels.map((level) => {
         return (
-          <div className="grid grid-cols-4" key={level}>
+          <div className="grid grid-cols-4 border-2" key={level}>
             {cols.map((col) => {
               return (
                 <div key={col}>
@@ -39,10 +42,12 @@ const Board = () => {
                         className="border w-20 h-20 flex justify-center items-center text-5xl"
                         onClick={(e) => {
                           if (e.currentTarget.textContent) return;
-                          moves.push({player, coordinates: { row, col, level }});
-                          changePlayer();
                           e.currentTarget.textContent = player;
-                          console.log(moves);
+
+                          const lastMove = {player, coordinates: { row, col, level }};
+                          moves.push(lastMove);
+                          checkVictory(player, moves, lastMove);
+                          changePlayer();
                       }}></div>
                     )
                   })}
