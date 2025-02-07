@@ -6,3 +6,5 @@
 - pnpm install
 
 - pnpm run dev
+
+- more functionality to be done...
