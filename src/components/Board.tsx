@@ -19,9 +19,19 @@ const Board = () => {
     setPlayer((prevPlayer) => prevPlayer === 'x' ? 'o' : 'x');
   };
 
+  const restart = () => {
+    moves.length = 0;
+    setPlayer('x');
+    boardRef.current?.querySelectorAll('#cell').forEach((cell) => cell.textContent = '');
+    boardRef.current?.removeAttribute('inert');
+  };
+
   return (
     <div>
       <h1 className="text-center mb-20">Player's <span className="font-bold">{player.toUpperCase()}</span> turn</h1>
+      <button onClick={restart}>
+        New Game
+      </button>
       <Dialog ref={dialogRef} player={player} onCancel={() => toggleModal(dialogRef)} />
       <div ref={boardRef} className="grid grid-cols-4 gap-8">
         {levels.map((level) => {
@@ -33,6 +43,7 @@ const Board = () => {
                     {rows.map((row) => {
                       return (
                         <div
+                          id="cell"
                           key={row}
                           className="border w-20 h-20 flex justify-center items-center text-5xl"
                           onClick={(e) => {
