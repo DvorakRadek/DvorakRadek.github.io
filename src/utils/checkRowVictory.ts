@@ -1,4 +1,4 @@
-import { Coordinates, Move } from "../components/Board";
+import { Coordinates, Move } from "../common/types";
 
 export default function checkRowVictory(moves: Coordinates[], lastMove: Move): boolean {
   const filteredLC = moves.filter((move) => {
