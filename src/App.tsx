@@ -2,7 +2,7 @@ import Board from "./components/Board"
 
 const App = () => {
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-black">
+    <div className="w-screen min-h-screen flex justify-center items-center bg-black">
       <Board />
     </div>
   )
