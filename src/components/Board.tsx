@@ -13,6 +13,7 @@ const moves: Move[] = [];
 const Board = () => {
   const [player, setPlayer] = useState<Player>('x');
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const boardRef = useRef<HTMLDivElement>(null);
 
   const changePlayer = () => {
     setPlayer((prevPlayer) => prevPlayer === 'x' ? 'o' : 'x');
@@ -22,7 +23,7 @@ const Board = () => {
     <div>
       <h1 className="text-center mb-20">Player's <span className="font-bold">{player.toUpperCase()}</span> turn</h1>
       <Dialog ref={dialogRef} player={player} onCancel={() => toggleModal(dialogRef)} />
-      <div className="grid grid-cols-4 gap-8">
+      <div ref={boardRef} className="grid grid-cols-4 gap-8">
         {levels.map((level) => {
           return (
             <div className="grid grid-cols-4 border-2" key={level}>
@@ -41,6 +42,7 @@ const Board = () => {
                             moves.push(lastMove);
                             if (checkVictory(player, moves, lastMove)) {
                               toggleModal(dialogRef);
+                              boardRef.current?.setAttribute('inert', 'true');
                             } else changePlayer();
                         }}></div>
                       )
