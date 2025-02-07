@@ -1,4 +1,4 @@
-import { Coordinates } from "../components/Board";
+import { Coordinates } from "../common/types";
 import { checkIncludes } from "./checkIncludes";
 
 export default function checkDiagonalVictory(playersMoves: Coordinates[]): boolean {
