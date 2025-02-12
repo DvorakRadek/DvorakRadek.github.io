@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import checkVictory from "../utils/checkVictory";
-import { Move, Player } from "../common/types";
+import { Coordinates, Move, Player } from "../common/types";
 import Dialog from "./ui/Dialog";
 import { toggleModal } from "../utils/togglemodal";
 
@@ -22,8 +22,16 @@ const Board = () => {
   const restart = () => {
     moves.length = 0;
     setPlayer('x');
-    boardRef.current?.querySelectorAll('#cell').forEach((cell) => cell.textContent = '');
+    boardRef.current?.querySelectorAll('.cell').forEach((cell) => {cell.textContent = ''; cell.classList.remove('text-green-400')});
     boardRef.current?.removeAttribute('inert');
+  };
+
+  const highlightVictory = (victoryCells: false | Coordinates[]) => {
+    if (!victoryCells) return;
+    victoryCells.forEach((cell) => {
+      const victoryCell = boardRef.current?.querySelector(`#row${cell.row}-col${cell.col}-level${cell.level}`);
+      victoryCell?.classList.add('text-green-400');
+    });
   };
 
   return (
@@ -43,16 +51,18 @@ const Board = () => {
                     {rows.map((row) => {
                       return (
                         <div
-                          id="cell"
                           key={row}
-                          className="border w-20 h-20 flex justify-center items-center text-5xl"
+                          id={`row${row}-col${col}-level${level}`}
+                          className="border w-20 h-20 flex justify-center items-center text-5xl cell"
                           onClick={(e) => {
                             if (e.currentTarget.textContent) return;
                             e.currentTarget.textContent = player;
                             const lastMove = {player, coordinates: { row, col, level }};
                             moves.push(lastMove);
                             if (checkVictory(player, moves, lastMove)) {
+                              const victoryCells = checkVictory(player, moves, lastMove);
                               toggleModal(dialogRef);
+                              highlightVictory(victoryCells);
                               boardRef.current?.setAttribute('inert', 'true');
                             } else changePlayer();
                         }}></div>
