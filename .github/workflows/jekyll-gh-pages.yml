@@ -32,7 +32,7 @@ jobs:
         run: |
           npm install
           npm run build
-          cd dist/
+          cd dist/assets
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
