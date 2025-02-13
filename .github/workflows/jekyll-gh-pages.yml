@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run build
-        run: npm run build
+        run: npm run build cd dist/
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
