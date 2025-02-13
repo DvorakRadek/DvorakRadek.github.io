@@ -25,8 +25,8 @@ const Board = () => {
       <Button onClick={() => restart(moves, boardRef)}>New Game</Button>
 
       <Dialog ref={dialogRef} player={player} onCancel={() => toggleModal(dialogRef)} />
-
-      <div ref={boardRef} className="grid grid-cols-4 gap-8 mt-20">
+      
+      <div ref={boardRef} className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
         {COORDINATES.levels.map((level) => {
           return (
             <div className="grid grid-cols-4 border-2" key={level}>
