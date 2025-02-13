@@ -1,12 +1,11 @@
 import { useRef, useState } from "react";
-import checkVictory from "../utils/checkVictory";
 import { Move, Player } from "../common/types";
 import Dialog from "./ui/Dialog";
 import { toggleModal } from "../utils/togglemodal";
-
-const rows = [1, 2, 3, 4];
-const cols = [1, 2, 3, 4];
-const levels = [1, 2, 3, 4];
+import { COORDINATES } from "../common/constants";
+import { restart } from "../utils/restart";
+import Button from "./ui/Button";
+import Cell from "./Cell";
 
 const moves: Move[] = [];
 
@@ -19,43 +18,24 @@ const Board = () => {
     setPlayer((prevPlayer) => prevPlayer === 'x' ? 'o' : 'x');
   };
 
-  const restart = () => {
-    moves.length = 0;
-    setPlayer('x');
-    boardRef.current?.querySelectorAll('#cell').forEach((cell) => cell.textContent = '');
-    boardRef.current?.removeAttribute('inert');
-  };
-
   return (
-    <div>
-      <h1 className="text-center mb-20">Player's <span className="font-bold">{player.toUpperCase()}</span> turn</h1>
-      <button onClick={restart}>
-        New Game
-      </button>
+    <div className="flex flex-col items-center">
+      <h2 className="text-center mb-10 text-5xl">Player's <span className="font-bold">{player.toUpperCase()}</span> turn</h2>
+
+      <Button onClick={() => restart(moves, boardRef)}>New Game</Button>
+
       <Dialog ref={dialogRef} player={player} onCancel={() => toggleModal(dialogRef)} />
+      
       <div ref={boardRef} className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
-        {levels.map((level) => {
+        {COORDINATES.levels.map((level) => {
           return (
             <div className="grid grid-cols-4 border-2" key={level}>
-              {cols.map((col) => {
+              {COORDINATES.cols.map((col) => {
                 return (
                   <div key={col}>
-                    {rows.map((row) => {
+                    {COORDINATES.rows.map((row) => {
                       return (
-                        <div
-                          id="cell"
-                          key={row}
-                          className="border w-20 h-20 flex justify-center items-center text-5xl"
-                          onClick={(e) => {
-                            if (e.currentTarget.textContent) return;
-                            e.currentTarget.textContent = player;
-                            const lastMove = {player, coordinates: { row, col, level }};
-                            moves.push(lastMove);
-                            if (checkVictory(player, moves, lastMove)) {
-                              toggleModal(dialogRef);
-                              boardRef.current?.setAttribute('inert', 'true');
-                            } else changePlayer();
-                        }}></div>
+                        <Cell key={row} row={row} col={col} level={level} boardRef={boardRef} dialogRef={dialogRef} player={player} moves={moves} changePlayer={changePlayer} />
                       )
                     })}
                   </div>
