@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
 import checkVictory from "../utils/checkVictory";
-import { Coordinates, Move, Player } from "../common/types";
+import { Move, Player } from "../common/types";
 import Dialog from "./ui/Dialog";
 import { toggleModal } from "../utils/togglemodal";
-
-const rows = [1, 2, 3, 4];
-const cols = [1, 2, 3, 4];
-const levels = [1, 2, 3, 4];
+import { COORDINATES } from "../common/constants";
+import { restart } from "../utils/restart";
+import { highlightVictory } from "../utils/highlightVictory";
+import Button from "./ui/Button";
 
 const moves: Move[] = [];
 
@@ -19,36 +19,22 @@ const Board = () => {
     setPlayer((prevPlayer) => prevPlayer === 'x' ? 'o' : 'x');
   };
 
-  const restart = () => {
-    moves.length = 0;
-    setPlayer('x');
-    boardRef.current?.querySelectorAll('.cell').forEach((cell) => {cell.textContent = ''; cell.classList.remove('text-green-400')});
-    boardRef.current?.removeAttribute('inert');
-  };
-
-  const highlightVictory = (victoryCells: false | Coordinates[]) => {
-    if (!victoryCells) return;
-    victoryCells.forEach((cell) => {
-      const victoryCell = boardRef.current?.querySelector(`#row${cell.row}-col${cell.col}-level${cell.level}`);
-      victoryCell?.classList.add('text-green-400');
-    });
-  };
-
   return (
-    <div>
-      <h1 className="text-center mb-20">Player's <span className="font-bold">{player.toUpperCase()}</span> turn</h1>
-      <button onClick={restart}>
-        New Game
-      </button>
+    <div className="flex flex-col items-center">
+      <h2 className="text-center mb-10 text-5xl">Player's <span className="font-bold">{player.toUpperCase()}</span> turn</h2>
+
+      <Button onClick={() => restart(moves, boardRef)}>New Game</Button>
+
       <Dialog ref={dialogRef} player={player} onCancel={() => toggleModal(dialogRef)} />
+
       <div ref={boardRef} className="grid grid-cols-4 gap-8">
-        {levels.map((level) => {
+        {COORDINATES.levels.map((level) => {
           return (
             <div className="grid grid-cols-4 border-2" key={level}>
-              {cols.map((col) => {
+              {COORDINATES.cols.map((col) => {
                 return (
                   <div key={col}>
-                    {rows.map((row) => {
+                    {COORDINATES.rows.map((row) => {
                       return (
                         <div
                           key={row}
@@ -60,9 +46,8 @@ const Board = () => {
                             const lastMove = {player, coordinates: { row, col, level }};
                             moves.push(lastMove);
                             if (checkVictory(player, moves, lastMove)) {
-                              const victoryCells = checkVictory(player, moves, lastMove);
+                              highlightVictory(checkVictory(player, moves, lastMove), boardRef);
                               toggleModal(dialogRef);
-                              highlightVictory(victoryCells);
                               boardRef.current?.setAttribute('inert', 'true');
                             } else changePlayer();
                         }}></div>
