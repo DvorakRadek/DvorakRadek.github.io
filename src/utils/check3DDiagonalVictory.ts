@@ -8,14 +8,10 @@ export default function check3DDiagonalVictory(playersMoves: Coordinates[]): fal
     return combination.every(cell => checkIncludes(playersMoves, cell));
   };
 
-  if (checkVictoryCombination(DIAGONAL_3D_COMBINATIONS.victoryCombination1)
-    || checkVictoryCombination(DIAGONAL_3D_COMBINATIONS.victoryCombination2)
-    || checkVictoryCombination(DIAGONAL_3D_COMBINATIONS.victoryCombination3)
-    || checkVictoryCombination(DIAGONAL_3D_COMBINATIONS.victoryCombination4)) {
-      if (checkVictoryCombination(DIAGONAL_3D_COMBINATIONS.victoryCombination1)) return DIAGONAL_3D_COMBINATIONS.victoryCombination1;
-      if (checkVictoryCombination(DIAGONAL_3D_COMBINATIONS.victoryCombination2)) return DIAGONAL_3D_COMBINATIONS.victoryCombination2;
-      if (checkVictoryCombination(DIAGONAL_3D_COMBINATIONS.victoryCombination3)) return DIAGONAL_3D_COMBINATIONS.victoryCombination3;
-      if (checkVictoryCombination(DIAGONAL_3D_COMBINATIONS.victoryCombination4)) return DIAGONAL_3D_COMBINATIONS.victoryCombination4;
+  for (const combination of Object.values(DIAGONAL_3D_COMBINATIONS)) {
+    if (checkVictoryCombination(combination)) {
+      return combination;
+    }
   }
 
   return false;

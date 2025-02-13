@@ -4,6 +4,8 @@ export const COORDINATES = {
   levels: [1, 2, 3, 4],
 };
 
+const levels = [1, 2, 3, 4];
+
 export const DIAGONAL_3D_COMBINATIONS = {
   victoryCombination1: [
     { row: 1, col: 1, level: 1 },
@@ -34,3 +36,16 @@ export const DIAGONAL_3D_COMBINATIONS = {
 export const HIGHLIGHTED = ['text-green-400', 'font-bold', 'border-black'];
 
 export const LASTMOVE = 'font-bold';
+
+export const comb1 = () => {
+  const result = [];
+  for (let i = 0; i < levels.length; i++) {
+    result.push({
+      row: levels[i],
+      col: levels[i],
+      level: levels[i],
+    });
+  }
+  console.log(result);
+  return result;
+};

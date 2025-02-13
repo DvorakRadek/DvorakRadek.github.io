@@ -4,6 +4,7 @@ import checkVictory from "../utils/checkVictory";
 import { highlightVictory } from "../utils/highlightVictory";
 import { toggleModal } from "../utils/togglemodal";
 import { markLastMove } from "../utils/markLastMove";
+import { comb1 } from "../common/constants";
 
 type CellProps = {
   row: number,
@@ -23,6 +24,7 @@ const Cell = ({ row, col, level, moves, player, boardRef, dialogRef, changePlaye
       className="border w-20 h-20 flex justify-center items-center text-5xl cell"
       onClick={(e) => {
         if (e.currentTarget.textContent) return;
+        comb1();
         e.currentTarget.textContent = player;
         const lastMove = {player, coordinates: { row, col, level }};
         moves.push(lastMove);
