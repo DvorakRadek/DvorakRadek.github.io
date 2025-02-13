@@ -28,11 +28,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm install
+      - name: Compile TypeScript
+        run: npx tsc
       - name: Run build
-        run: |
-          npm install
-          npm run build
-          cd dist/assets
+        run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
