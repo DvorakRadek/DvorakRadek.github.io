@@ -30,3 +30,5 @@ export const DIAGONAL_3D_COMBINATIONS = {
     { row: 4, col: 1, level: 1 },
   ],
 };
+
+export const HIGHLIGHTED = ['text-green-400', 'font-bold', 'border-black'];

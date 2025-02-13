@@ -10,7 +10,7 @@ type DialogProps = {
 const Dialog = forwardRef<HTMLDialogElement, DialogProps>(({ player, onCancel }, ref) => {
   return (
     <dialog ref={ref} className='mx-auto my-auto text-center py-4 backdrop:bg-black/70 border w-[500px] rounded-xl'>
-      <p className="text-3xl my-10">Player <span className="font-bold">{player.toUpperCase()}</span> wins!</p>
+      <p className="text-3xl my-4">Player <span className="font-bold">{player.toUpperCase()}</span> wins!</p>
       <Button onClick={onCancel}>Close</Button>
     </dialog>
   );

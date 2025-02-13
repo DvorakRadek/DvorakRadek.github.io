@@ -1,12 +1,11 @@
 import { useRef, useState } from "react";
-import checkVictory from "../utils/checkVictory";
 import { Move, Player } from "../common/types";
 import Dialog from "./ui/Dialog";
 import { toggleModal } from "../utils/togglemodal";
 import { COORDINATES } from "../common/constants";
 import { restart } from "../utils/restart";
-import { highlightVictory } from "../utils/highlightVictory";
 import Button from "./ui/Button";
+import Cell from "./Cell";
 
 const moves: Move[] = [];
 
@@ -27,7 +26,7 @@ const Board = () => {
 
       <Dialog ref={dialogRef} player={player} onCancel={() => toggleModal(dialogRef)} />
 
-      <div ref={boardRef} className="grid grid-cols-4 gap-8">
+      <div ref={boardRef} className="grid grid-cols-4 gap-8 mt-20">
         {COORDINATES.levels.map((level) => {
           return (
             <div className="grid grid-cols-4 border-2" key={level}>
@@ -36,21 +35,7 @@ const Board = () => {
                   <div key={col}>
                     {COORDINATES.rows.map((row) => {
                       return (
-                        <div
-                          key={row}
-                          id={`row${row}-col${col}-level${level}`}
-                          className="border w-20 h-20 flex justify-center items-center text-5xl cell"
-                          onClick={(e) => {
-                            if (e.currentTarget.textContent) return;
-                            e.currentTarget.textContent = player;
-                            const lastMove = {player, coordinates: { row, col, level }};
-                            moves.push(lastMove);
-                            if (checkVictory(player, moves, lastMove)) {
-                              highlightVictory(checkVictory(player, moves, lastMove), boardRef);
-                              toggleModal(dialogRef);
-                              boardRef.current?.setAttribute('inert', 'true');
-                            } else changePlayer();
-                        }}></div>
+                        <Cell key={row} row={row} col={col} level={level} boardRef={boardRef} dialogRef={dialogRef} player={player} moves={moves} changePlayer={changePlayer} />
                       )
                     })}
                   </div>
