@@ -1,10 +1,9 @@
-# P3D installation guide
+# 3D criss-cross installation guide
 - git clone https://github.com/DvorakRadek/P3D.git
-
 - cd P3D
-
 - pnpm install
-
 - pnpm run dev
 
-- more functionality to be done...
+## Instructions
+- connect 4 cells together
+- don't forget about third dimension!
