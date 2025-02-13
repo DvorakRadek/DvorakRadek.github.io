@@ -32,3 +32,5 @@ export const DIAGONAL_3D_COMBINATIONS = {
 };
 
 export const HIGHLIGHTED = ['text-green-400', 'font-bold', 'border-black'];
+
+export const LASTMOVE = 'font-bold';

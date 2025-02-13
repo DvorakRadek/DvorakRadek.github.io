@@ -3,6 +3,7 @@ import { Move, Player } from "../common/types";
 import checkVictory from "../utils/checkVictory";
 import { highlightVictory } from "../utils/highlightVictory";
 import { toggleModal } from "../utils/togglemodal";
+import { markLastMove } from "../utils/markLastMove";
 
 type CellProps = {
   row: number,
@@ -25,6 +26,7 @@ const Cell = ({ row, col, level, moves, player, boardRef, dialogRef, changePlaye
         e.currentTarget.textContent = player;
         const lastMove = {player, coordinates: { row, col, level }};
         moves.push(lastMove);
+        markLastMove(boardRef, lastMove);
         if (checkVictory(player, moves, lastMove)) {
           highlightVictory(checkVictory(player, moves, lastMove), boardRef);
           toggleModal(dialogRef);
