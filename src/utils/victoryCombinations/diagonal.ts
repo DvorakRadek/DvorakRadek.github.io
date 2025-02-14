@@ -1,15 +1,16 @@
+import { LEVELS } from "../../common/constants";
 import { Coordinates, Move} from "../../common/types";
 
 export const getLevelDiagonalCombination = (lastMove: Move) => {
   const result: Coordinates[][] = [[], []];
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= LEVELS; i++) {
     result[0].push({
       row: i,
       col: i,
       level: lastMove.coordinates.level,
     });
     result[1].push({
-      row: 4 - i + 1,
+      row: LEVELS - i + 1,
       col: i,
       level: lastMove.coordinates.level,
     })
@@ -19,7 +20,7 @@ export const getLevelDiagonalCombination = (lastMove: Move) => {
 
 export const getRowDiagonalCombination = (lastMove: Move) => {
   const result: Coordinates[][] = [[], []];
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= LEVELS; i++) {
     result[0].push({
       row: lastMove.coordinates.row,
       col: i,
@@ -27,7 +28,7 @@ export const getRowDiagonalCombination = (lastMove: Move) => {
     });
     result[1].push({
       row: lastMove.coordinates.row,
-      col: 4 - i + 1,
+      col: LEVELS - i + 1,
       level: i,
     })
   }
@@ -36,14 +37,14 @@ export const getRowDiagonalCombination = (lastMove: Move) => {
 
 export const getColDiagonalCombination = (lastMove: Move) => {
   const result: Coordinates[][] = [[], []];
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= LEVELS; i++) {
     result[0].push({
       row: i,
       col: lastMove.coordinates.col,
       level: i,
     });
     result[1].push({
-      row: 4 - i + 1,
+      row: LEVELS - i + 1,
       col: lastMove.coordinates.col,
       level: i,
     })

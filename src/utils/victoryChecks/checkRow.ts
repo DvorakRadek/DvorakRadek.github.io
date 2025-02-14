@@ -1,3 +1,4 @@
+import { LEVELS } from "../../common/constants";
 import { Coordinates, Move } from "../../common/types";
 
 export default function checkRowVictory(moves: Coordinates[], lastMove: Move): false | Coordinates[] {
@@ -14,10 +15,10 @@ export default function checkRowVictory(moves: Coordinates[], lastMove: Move): f
   });
 
 
-  if (filteredLC.length === 4 || filteredLR.length === 4 || filteredCR.length === 4) {
-    if (filteredLC.length === 4) return filteredLC;
-    if (filteredLR.length === 4) return filteredLR;
-    if (filteredCR.length === 4) return filteredCR;
+  if (filteredLC.length === LEVELS || filteredLR.length === LEVELS || filteredCR.length === LEVELS) {
+    if (filteredLC.length === LEVELS) return filteredLC;
+    if (filteredLR.length === LEVELS) return filteredLR;
+    if (filteredCR.length === LEVELS) return filteredCR;
   }
   return false;
 }

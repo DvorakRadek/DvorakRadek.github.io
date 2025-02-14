@@ -2,10 +2,11 @@ import { useRef, useState } from "react";
 import { Move, Player } from "../common/types";
 import Dialog from "./ui/Dialog";
 import { toggleModal } from "../utils/togglemodal";
-import { COORDINATES } from "../common/constants";
 import { restart } from "../utils/restart";
 import Button from "./ui/Button";
 import Cell from "./Cell";
+import { coordinates } from "../common/coordinates";
+import { LEVELS } from "../common/constants";
 
 const moves: Move[] = [];
 
@@ -26,14 +27,14 @@ const Board = () => {
 
       <Dialog ref={dialogRef} player={player} onCancel={() => toggleModal(dialogRef)} />
       
-      <div ref={boardRef} className="mt-10 grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
-        {COORDINATES.levels.map((level) => {
+      <div ref={boardRef} className={`mt-10 grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-${LEVELS} gap-8`}>
+        {coordinates.levels.map((level) => {
           return (
-            <div className="grid grid-cols-4 border-2" key={level}>
-              {COORDINATES.cols.map((col) => {
+            <div className="flex flex-wrap border-2" key={level}>
+              {coordinates.cols.map((col) => {
                 return (
                   <div key={col}>
-                    {COORDINATES.rows.map((row) => {
+                    {coordinates.rows.map((row) => {
                       return (
                         <Cell key={row} row={row} col={col} level={level} boardRef={boardRef} dialogRef={dialogRef} player={player} moves={moves} changePlayer={changePlayer} />
                       )
