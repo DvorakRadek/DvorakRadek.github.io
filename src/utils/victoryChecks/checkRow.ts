@@ -1,4 +1,4 @@
-import { Coordinates, Move } from "../common/types";
+import { Coordinates, Move } from "../../common/types";
 
 export default function checkRowVictory(moves: Coordinates[], lastMove: Move): false | Coordinates[] {
   const filteredLC = moves.filter((move) => {

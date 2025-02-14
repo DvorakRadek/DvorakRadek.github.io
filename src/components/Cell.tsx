@@ -1,10 +1,9 @@
 import { RefObject } from "react";
-import { Move, Player } from "../common/types";
-import checkVictory from "../utils/checkVictory";
-import { highlightVictory } from "../utils/highlightVictory";
+import { Player, Move } from "../common/types";
 import { toggleModal } from "../utils/togglemodal";
-import { markLastMove } from "../utils/markLastMove";
-import { comb1 } from "../common/constants";
+import checkVictory from "../utils/victoryChecks/checkVictory";
+import { highlightLastMove } from "../utils/highlight/highlightLastMove";
+import { highlightVictory } from "../utils/highlight/highlightVictory";
 
 type CellProps = {
   row: number,
@@ -24,11 +23,10 @@ const Cell = ({ row, col, level, moves, player, boardRef, dialogRef, changePlaye
       className="border w-20 h-20 flex justify-center items-center text-5xl cell"
       onClick={(e) => {
         if (e.currentTarget.textContent) return;
-        comb1();
         e.currentTarget.textContent = player;
         const lastMove = {player, coordinates: { row, col, level }};
         moves.push(lastMove);
-        markLastMove(boardRef, lastMove);
+        highlightLastMove(boardRef, lastMove);
         if (checkVictory(player, moves, lastMove)) {
           highlightVictory(checkVictory(player, moves, lastMove), boardRef);
           toggleModal(dialogRef);
