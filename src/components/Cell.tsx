@@ -20,7 +20,7 @@ const Cell = ({ row, col, level, moves, player, boardRef, dialogRef, changePlaye
   return (
     <div
       id={`row${row}-col${col}-level${level}`}
-      className="border w-20 h-20 flex justify-center items-center text-5xl cell"
+      className="border w-16 h-16 flex justify-center items-center text-4xl cell"
       onClick={(e) => {
         if (e.currentTarget.textContent) return;
         e.currentTarget.textContent = player;
