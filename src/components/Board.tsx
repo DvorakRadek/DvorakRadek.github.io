@@ -6,7 +6,6 @@ import { restart } from "../utils/restart";
 import Button from "./ui/Button";
 import Cell from "./Cell";
 import { coordinates } from "../common/coordinates";
-import { LEVELS } from "../common/constants";
 
 const moves: Move[] = [];
 
@@ -20,14 +19,14 @@ const Board = () => {
   };
 
   return (
-    <div className="m-10 flex flex-col items-center">
+    <div className="my-10 flex flex-col items-center">
       <h2 className="text-center mb-10 text-5xl">Player's <span className="font-bold">{player.toUpperCase()}</span> turn</h2>
 
       <Button onClick={() => restart(moves, boardRef)}>New Game</Button>
 
       <Dialog ref={dialogRef} player={player} onCancel={() => toggleModal(dialogRef)} />
       
-      <div ref={boardRef} className={`mt-10 grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-${LEVELS} gap-8`}>
+      <div ref={boardRef} className={`mt-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8`}>
         {coordinates.levels.map((level) => {
           return (
             <div className="flex flex-wrap border-2" key={level}>
