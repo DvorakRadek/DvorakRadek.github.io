@@ -1,7 +1,7 @@
-import { Coordinates, Move, Player } from "../common/types";
-import checkDiagonalVictory from "./checkDiagonalVictory";
-import check3DDiagonalVictory from "./check3DDiagonalVictory";
-import checkRowVictory from "./checkRowVictory";
+import { Coordinates, Move, Player } from "../../common/types";
+import checkDiagonalVictory from "./checkDiagonal";
+import check3DDiagonalVictory from "./checkDiagonal3D";
+import checkRowVictory from "./checkRow";
 
 export default function checkVictory(player: Player, moves: Move[], lastMove: Move): false | Coordinates[] {
   const playersMoves = moves.filter((move) => move.player === player).map((move) => move.coordinates);
