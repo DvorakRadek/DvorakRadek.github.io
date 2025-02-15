@@ -5,7 +5,7 @@ export type Coordinates = {
 }
 
 export type Move = {
-  player: 'x' | 'o',
+  player: Player,
   coordinates: Coordinates,
 }
 
