@@ -20,7 +20,7 @@ const Board = () => {
 
   return (
     <div className="my-10 flex flex-col items-center">
-      <h2 className="text-center mb-10 text-5xl">Player's <span className="font-bold">{player.toUpperCase()}</span> turn</h2>
+      <h2 className="text-center mb-10 text-5xl">Player <span className="font-bold">{player.toUpperCase()}</span>'s turn</h2>
 
       <Button onClick={() => restart(moves, boardRef)}>New Game</Button>
 
