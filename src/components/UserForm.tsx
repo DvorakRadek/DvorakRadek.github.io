@@ -7,10 +7,10 @@ type UserFormProps = {
 
 const UserForm = ({ total }: UserFormProps) => {
   const [formData, setFormData] = useState({
-    username: "a",
-    email: "a@a.a",
-    phone: "a",
-    address: "a",
+    username: "",
+    email: "",
+    phone: "",
+    address: "",
   });
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -21,6 +21,7 @@ const UserForm = ({ total }: UserFormProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log({ ...formData, total });
     dialogRef.current?.showModal();
   };
 
