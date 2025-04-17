@@ -9,10 +9,10 @@ type ConfirmationProps = {
 
 }
 
-const Confirmation = ({ recap: { username, email, phone, address, total }}: ConfirmationProps) => {
+const Confirmation = ({ recap: { username, total }}: ConfirmationProps) => {
   return (
-    <div>
-      User: {username} - {email} - {phone} - {address} - {total.toFixed(2)}
+    <div className="text-xl">
+      User: {username}<br />
       Total amount: ${total.toFixed(2)}
     </div>
   );

@@ -7,10 +7,10 @@ type UserFormProps = {
 
 const UserForm = ({ total }: UserFormProps) => {
   const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    phone: "",
-    address: "",
+    username: "a",
+    email: "a@a.a",
+    phone: "a",
+    address: "a",
   });
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -21,7 +21,7 @@ const UserForm = ({ total }: UserFormProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dialogRef?.current?.showModal();
+    dialogRef.current?.showModal();
   };
 
   const handleCancel = () => {
@@ -34,7 +34,7 @@ const UserForm = ({ total }: UserFormProps) => {
   };
 
   const handleDialogClose = () => {
-    dialogRef?.current?.close();
+    dialogRef.current?.close();
     window.location.reload();
   };
 
@@ -118,13 +118,13 @@ const UserForm = ({ total }: UserFormProps) => {
         </div>
       </form>
 
-      <dialog ref={dialogRef} className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+      <dialog ref={dialogRef} className="absolute top-[calc(50%-100px)] left-[calc(50%-250px)]">
+        <div className="bg-white flex flex-col p-6 rounded-lg shadow-lg w-[500px] h-[200px] justify-center items-center">
           <Confirmation recap={{ ...formData, total }} />
           <div className="mt-4 text-center">
             <button
               onClick={handleDialogClose}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600"
+              className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600"
             >
               OK
             </button>
